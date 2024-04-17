@@ -31,3 +31,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+*.DS_Store
+.DS_Store
+/AppFramework/AccentApp/.idea
+/AppFramework/AccentApp/.idea
+AppFramework/AccentApp/.idea/workspace.xml
