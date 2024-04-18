@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AccentApp"
 include(":app")
-include (":AccentApp.app.main")
+ 
