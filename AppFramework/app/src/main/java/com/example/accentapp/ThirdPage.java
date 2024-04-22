@@ -18,7 +18,18 @@ public class ThirdPage extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
+        // Get the Intent that started this activity
+        Intent intent = getIntent();
+        // Get the server response from the Intent
+        String serverResponse = intent.getStringExtra("serverResponse");
+
+        // Find the TextView in which to display the server response
+        TextView responseTextView = findViewById(R.id.responseTextView);
+        // Set the server response as the text of the TextView
+        responseTextView.setText(serverResponse);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_third_page);
 

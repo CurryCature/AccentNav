@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 
 public class Secondpage extends AppCompatActivity {
@@ -142,9 +143,18 @@ public class Secondpage extends AppCompatActivity {
         // Create an instance of TCPClient
         com.example.accentapp.tcpclient.TCPClient tcpClient = new com.example.accentapp.tcpclient.TCPClient();
         try {
-            // Call the askServer method
+            // Call the askServer method in TCPClient
             byte[] serverResponse = tcpClient.askServer(hostname, port, userInputBytes);
-            // Handle the server response here
+            String serverResponseStr = new String(serverResponse, StandardCharsets.UTF_8);
+
+            // Create an Intent to start the Loading activity
+            Intent intent = new Intent(Secondpage.this, Loading.class);
+            // Put the server response into the Intent
+            intent.putExtra("serverResponse", serverResponseStr);
+            // Start the Loading activity
+            startActivity(intent);
+            finish();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
