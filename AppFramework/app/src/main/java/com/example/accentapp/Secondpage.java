@@ -23,8 +23,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
@@ -147,40 +152,6 @@ public class Secondpage extends AppCompatActivity {
                 isRecording = false;
                 handler.removeCallbacksAndMessages(null); // Cancel scheduled stop
                 Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show();
-
-                //Extracting the audio file.
-                File audioFile = new File(outputFilePath);
-                if (audioFile.exists()) {
-                    // The file exists
-                    fileSizeInBytes = audioFile.length();
-                } else {
-                    // The file does not exist
-                    fileSizeInBytes = 0;
-                }
-                try {
-                    userInputBytes = Files.readAllBytes(Paths.get(outputFilePath));
-                    Toast.makeText(this, "Audio file extracted", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                // Create an instance of TCPClient
-                com.example.accentapp.tcpclient.TCPClient tcpClient = new com.example.accentapp.tcpclient.TCPClient();
-                try {
-                    // Call the askServer method in TCPClient
-                    byte[] serverResponse = tcpClient.askServer(hostname, port, userInputBytes);
-                    Toast.makeText(this, "Server response received", Toast.LENGTH_SHORT).show();
-                    String serverResponseStr = new String(serverResponse, StandardCharsets.UTF_8);
-                    // Create an Intent to start the Loading activity
-                    Intent intent = new Intent(Secondpage.this, Loading.class);
-                    // Put the server response into the Intent
-                    intent.putExtra("serverResponse", serverResponseStr);
-                    // Start the Loading activity
-                    startActivity(intent);
-                    finish();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
             } else {
                 continueNext = false;
                 handler.removeCallbacksAndMessages(null);
@@ -191,6 +162,8 @@ public class Secondpage extends AppCompatActivity {
         }
         return continueNext;
     }
+
+
 
     // stop recording when exceed max length
     private void scheduleStopRecording(long durationMillis) {
