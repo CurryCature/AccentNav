@@ -159,6 +159,7 @@ public class Secondpage extends AppCompatActivity {
                 }
                 try {
                     userInputBytes = Files.readAllBytes(Paths.get(outputFilePath));
+                    Toast.makeText(this, "Audio file extracted", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -167,6 +168,7 @@ public class Secondpage extends AppCompatActivity {
                 try {
                     // Call the askServer method in TCPClient
                     byte[] serverResponse = tcpClient.askServer(hostname, port, userInputBytes);
+                    Toast.makeText(this, "Server response received", Toast.LENGTH_SHORT).show();
                     String serverResponseStr = new String(serverResponse, StandardCharsets.UTF_8);
                     // Create an Intent to start the Loading activity
                     Intent intent = new Intent(Secondpage.this, Loading.class);
