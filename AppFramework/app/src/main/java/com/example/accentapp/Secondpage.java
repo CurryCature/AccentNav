@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class Secondpage extends AppCompatActivity {
@@ -33,11 +35,10 @@ public class Secondpage extends AppCompatActivity {
     private String outputFilePath;
 
     private long fileSizeInBytes = 0;
-    private String javaExecutablePath = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp/TCPAsk.java";
-    private String classpath = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp";
-    private String tcpAskClass = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp/TCPAsk.class";
     private String hostname = "130.229.141.0"; // The server's IP address or hostname
     private int port = 28561; // The server's port
+
+    private byte[] userInputBytes = new byte[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,14 +132,23 @@ public class Secondpage extends AppCompatActivity {
             // The file does not exist
             fileSizeInBytes = 0;
         }
-        String command = String.format("%s -cp %s %s %s %d %s", javaExecutablePath, classpath, tcpAskClass, hostname, port, outputFilePath);
-
         try {
-            Process process = Runtime.getRuntime().exec(command);
-            // You can read the output of the process if needed
+            userInputBytes = Files.readAllBytes(Paths.get(outputFilePath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        // Create an instance of TCPClient
+        com.example.accentapp.tcpclient.TCPClient tcpClient = new com.example.accentapp.tcpclient.TCPClient();
+        try {
+            // Call the askServer method
+            byte[] serverResponse = tcpClient.askServer(hostname, port, userInputBytes);
+            // Handle the server response here
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
