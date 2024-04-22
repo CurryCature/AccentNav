@@ -30,7 +30,14 @@ public class Secondpage extends AppCompatActivity {
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 100;
     private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 101;
     private MediaRecorder mediaRecorder;
-    private String outputFile;
+    private String outputFilePath;
+
+    private long fileSizeInBytes = 0;
+    private String javaExecutablePath = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp/TCPAsk.java";
+    private String classpath = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp";
+    private String tcpAskClass = "/Users/hosnamolavi/Downloads/AccentApp - Copy/app/src/main/java/com/example/accentapp/TCPAsk.class";
+    private String hostname = "130.229.141.0"; // The server's IP address or hostname
+    private int port = 28561; // The server's port
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +55,8 @@ public class Secondpage extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );*/
 
-        // Initialize outputFile
-        outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.aac").getAbsolutePath();
+        // Initialize outputFile(the string output file path)
+        outputFilePath = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.aac").getAbsolutePath();
 
 
         // Upload button
@@ -86,13 +93,12 @@ public class Secondpage extends AppCompatActivity {
         });
 
     }
-
     private void startRecording() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        mediaRecorder.setOutputFile(outputFile);
+        mediaRecorder.setOutputFile(outputFilePath);
 
         try {
             mediaRecorder.prepare();
@@ -116,6 +122,24 @@ public class Secondpage extends AppCompatActivity {
             mediaRecorder = null;
             Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show();
         }
+        //Extracting the audio file.
+        File audioFile = new File(outputFilePath);
+        if (audioFile.exists()) {
+            // The file exists
+            fileSizeInBytes = audioFile.length();
+        } else {
+            // The file does not exist
+            fileSizeInBytes = 0;
+        }
+        String command = String.format("%s -cp %s %s %s %d %s", javaExecutablePath, classpath, tcpAskClass, hostname, port, outputFilePath);
+
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            // You can read the output of the process if needed
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private boolean checkPermissions() {
