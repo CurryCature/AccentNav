@@ -51,8 +51,6 @@ public class Loading extends AppCompatActivity{
             public void run() {
                 Intent intent = new Intent(Loading.this, ThirdPage.class);
                 intent.putExtra("outputFilePath", outputFilePath);
-                intent.putExtra("port", port);
-                intent.putExtra("hostname", hostname);
                 startActivity(intent);
                 finish();
             }

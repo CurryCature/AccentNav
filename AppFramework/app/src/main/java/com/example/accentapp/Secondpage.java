@@ -91,8 +91,6 @@ public class Secondpage extends AppCompatActivity{
                         if(stopRecording()) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
                             intent.putExtra("outputFilePath", outputFilePath);
-                            intent.putExtra("port", port);
-                            intent.putExtra("hostname", hostname);
                             startActivity(intent);
                             finish();
                         }
