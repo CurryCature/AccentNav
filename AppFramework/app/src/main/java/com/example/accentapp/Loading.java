@@ -21,6 +21,10 @@ public class Loading extends AppCompatActivity{
     TextView text1, text2, text3, text4;
     Timer timer;
 
+    private int port;
+    private String hostname;
+    private String outputFilePath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -46,6 +50,9 @@ public class Loading extends AppCompatActivity{
             @Override
             public void run() {
                 Intent intent = new Intent(Loading.this, ThirdPage.class);
+                intent.putExtra("outputFilePath", outputFilePath);
+                intent.putExtra("port", port);
+                intent.putExtra("hostname", hostname);
                 startActivity(intent);
                 finish();
             }

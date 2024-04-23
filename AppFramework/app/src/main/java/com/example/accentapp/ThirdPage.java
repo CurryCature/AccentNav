@@ -10,11 +10,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.Timer;
+import android.widget.TextView;
 
 public class ThirdPage extends AppCompatActivity{
     TextView textView;
     ImageView logo;
     Button button;
+
+    public TextView responseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -44,6 +47,18 @@ public class ThirdPage extends AppCompatActivity{
                 finish();
             }
         });
+
+        // Get the outputFilePath, port, and hostname from the Intent
+        String outputFilePath = intent.getStringExtra("outputFilePath");
+        int port = intent.getIntExtra("port", 0); // 0 is a default value
+        String hostname = intent.getStringExtra("hostname");
+        //Create an instance of AppRunnable
+        AppRunnable appRunnable = new AppRunnable(8080,     "localhost", outputFilePath);
+        //Start the thread
+        Thread thread = new Thread(appRunnable);
+        thread.start();
+        responseTextView.setText("Server response: " + appRunnable.serverAnswer.toString());
+
     }
 
 }

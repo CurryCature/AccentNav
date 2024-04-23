@@ -23,19 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.charset.StandardCharsets;
 
 
-public class Secondpage extends AppCompatActivity {
+public class Secondpage extends AppCompatActivity{
 
     private static final String TAG = "recording";
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 100;
@@ -45,7 +37,7 @@ public class Secondpage extends AppCompatActivity {
     private static final int MIN_RECORDING_DURATION = 5000; // 5 seconds
     private static final int MAX_RECORDING_DURATION = 60000; // 60 seconds
     private MediaRecorder mediaRecorder;
-    private String outputFilePath;
+    public String outputFilePath;
     private long fileSizeInBytes = 0;
     private String hostname = "130.229.141.0"; // The server's IP address or hostname
     private int port = 28561; // The server's port
@@ -68,16 +60,8 @@ public class Secondpage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Hide the navigation bar (optional)
-        /*getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );*/
-
         // Initialize outputFile(the string output file path)
         outputFilePath = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp4").getAbsolutePath();
-
-
 
         handler = new Handler();
 
@@ -106,6 +90,9 @@ public class Secondpage extends AppCompatActivity {
                         v.setPressed(false);
                         if(stopRecording()) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
+                            intent.putExtra("outputFilePath", outputFilePath);
+                            intent.putExtra("port", port);
+                            intent.putExtra("hostname", hostname);
                             startActivity(intent);
                             finish();
                         }
