@@ -5,9 +5,9 @@ import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
 
-public class AppRunnable implements Runnable{
+public class ServerThread implements Runnable{
 
-    byte[] serverAnswer = new byte[0];
+    public byte[] serverAnswer = new byte[0];
     private byte[] userInputBytes = new byte[0];
     private long fileSizeInBytes;
     private int port;
@@ -17,39 +17,47 @@ public class AppRunnable implements Runnable{
 
     private static int BUFFERSIZE = 1024;
 
-    public AppRunnable(int port, String hostname, String outputFilePath) {
+    private Socket clientSocket;
+
+    public ServerThread(Socket clientSocket, int port, String outputFilePath) {
+        this.clientSocket = clientSocket;
         this.port = port;
-        this.hostname = hostname;
+        //this.hostname = hostname;
         this.outputFilePath = outputFilePath;
     }
 
     public void run(){
-        
-        //Extracting the audio file.
-        File audioFile = new File(outputFilePath);
 
-        if (audioFile.exists()) {
-            // The file exists
-            fileSizeInBytes = audioFile.length();
-        } else {
-            // The file does not exist
-            fileSizeInBytes = 0;
+        while (!Thread.currentThread().isInterrupted()) try {
+            //Extracting the audio file.
+            File audioFile = new File(outputFilePath);
+
+            if (audioFile.exists()) {
+                // The file exists
+                fileSizeInBytes = audioFile.length();
+            } else {
+                // The file does not exist
+                fileSizeInBytes = 0;
+            }
+            try {
+                //userInputBytes = Files.readAllBytes(Paths.get(outputFilePath));
+                FileInputStream fileInputStream = new FileInputStream(audioFile);
+                userInputBytes = new byte[(int) audioFile.length()];
+                fileInputStream.read(userInputBytes);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try{
+                serverAnswer = askServer(hostname, port, userInputBytes);
+            }
+            catch(IOException ex) {
+                System.err.println(ex);
+                System.exit(1);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
         }
-        try {
-            //userInputBytes = Files.readAllBytes(Paths.get(outputFilePath));
-            FileInputStream fileInputStream = new FileInputStream(audioFile);
-            userInputBytes = new byte[(int) audioFile.length()];
-            fileInputStream.read(userInputBytes);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try{
-            serverAnswer = askServer(hostname, port, userInputBytes);
-        }
-        catch(IOException ex) {
-            System.err.println(ex);
-            System.exit(1);
-        }
+
         
     }
     public byte[] askServer(String hostname, int port, byte [] toServerBytes) throws IOException {
