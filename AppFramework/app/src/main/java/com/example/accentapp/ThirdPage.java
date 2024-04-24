@@ -13,20 +13,23 @@ import java.net.Socket;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-public class ThirdPage extends AppCompatActivity{
+
+public class ThirdPage extends AppCompatActivity implements RepositoryCallback<byte[]>{
     TextView textView;
     ImageView logo;
     Button button;
 
     private int port = 28561;
 
-    private String hostname = "130.229.141.0";
+    private String hostname = "130.229.144.97";
 
     byte[] dataToSend = new byte[0];
 
     private long fileSizeInBytes = 0;
 
     byte[] responseData = new byte[0];
+
+    TextView responseTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class ThirdPage extends AppCompatActivity{
         String outputFilePath = "/storage/emulated/0/Android/data/com.example.accentapp/files/Music/recording.mp4";
 
         // Find the TextView in which to display the server response
-        TextView responseTextView = findViewById(R.id.responseTextView);
+        responseTextView = findViewById(R.id.responseTextView);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_third_page);
@@ -72,19 +75,54 @@ public class ThirdPage extends AppCompatActivity{
             throw new RuntimeException(e);
         }
         try {
-            responseData = askServer(hostname, port, dataToSend);
+            askServer(hostname, port, dataToSend, this);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         // Set the server response as the text of the TextView
-        responseTextView.setText(serverResponse);
+        //responseTextView.setText(serverResponse);
     }
 
+    public void onComplete(byte[] result) {
+        if (result != null) {
+            responseData = result;
+            // Convert the byte array to a JSON string
+            String jasonString = new String(responseData);
 
+            //Specify the file path
+            String FilePath = getFilesDir() + "/response.json";
+            //Create a file object
+            File file = new File(FilePath);
+            //Write the JSON string to the file
+            try{
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write(jasonString);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Update the UI here
+            //runOnUiThread ensure that UI update is performed on the main thread.
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //responseTextView.setText(new String(responseData));
+                    //Set up a path to save the audio file.
+                    responseTextView.setText(FilePath);
+                }
+            });
+        } else {
+            // Handle error here
+            responseTextView.setText("Error, your accent is not detected. Please try again.");
+        }
+    }
 
     private static final int BUFFERSIZE = 1024;
 
-    public static byte[] askServer(String hostname, int port, byte[] toServerBytes) throws IOException {
+    public static byte[] askServer(String hostname, int port, byte[] toServerBytes, RepositoryCallback<byte[]> callback) throws IOException {
+
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] fromServerBuffer = new byte[BUFFERSIZE];
@@ -96,6 +134,7 @@ public class ThirdPage extends AppCompatActivity{
                 output.write(toServerBytes);
             } catch (IOException e) {
                 e.printStackTrace();
+                callback.onComplete(null);
             }
         });
 
@@ -106,8 +145,10 @@ public class ThirdPage extends AppCompatActivity{
                 while ((bytesRead = input.read(fromServerBuffer)) != -1) {
                     byteArrayOutputStream.write(fromServerBuffer, 0, bytesRead);
                 }
+                callback.onComplete(byteArrayOutputStream.toByteArray());
             } catch (IOException e) {
                 e.printStackTrace();
+                callback.onComplete(null);
             }
         });
 
@@ -127,15 +168,20 @@ public class ThirdPage extends AppCompatActivity{
     }
 
 
-    /*public static void main(String[] args) {
-
-        try {
-            byte[] responseData = askServer(hostname, port, dataToSend);
-            System.out.println("Received data from server: " + new String(responseData));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
 }
+
+/*
+* The askServer method is indeed responsible for sending data to the server
+*  and receiving the response. However, it's important to note that the onComplete
+*  method is a callback that gets executed when the server's response is received.
+*  In the current setup, the askServer method is called in the onCreate method,
+* which is correct because you want to initiate the server communication when the activity is created.
+*  The askServer method then starts two threads, one for sending data to the server and another for receiving the response.
+*   When the response is received, the onComplete method of the RepositoryCallback is called. This is where you handle the server's response.
+*  In your case, you're updating the responseData variable and the UI in the onComplete method,
+*  which is the correct place to do so.  So, to answer your question,
+* the askServer method should not be called in the onComplete method.
+*  It should be called where you want to initiate the server communication,
+* which in your case is in the onCreate method.
+* The onComplete method should be used to handle the server's response.
+*  */
