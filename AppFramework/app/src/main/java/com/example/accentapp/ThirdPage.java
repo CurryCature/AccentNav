@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.ByteBuffer;
 
 public class ThirdPage extends AppCompatActivity implements RepositoryCallback<byte[]>{
     TextView textView;
@@ -24,6 +25,8 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
     private String hostname = "130.229.144.97";
 
     byte[] dataToSend = new byte[0];
+
+    byte[]dataToSendWithoutHeader = new byte[0];
 
     private long fileSizeInBytes = 0;
 
@@ -37,8 +40,6 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         super.onCreate(savedInstanceState);
         // Get the Intent that started this activity
         Intent intent = getIntent();
-        // Get the server response from the Intent
-        String serverResponse = intent.getStringExtra("serverResponse");
         // Get the output file path from the Intent
         //String outputFilePath = intent.getStringExtra("outputFilePath");
         String outputFilePath = "/storage/emulated/0/Android/data/com.example.accentapp/files/Music/recording.mp4";
@@ -70,7 +71,17 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
             fileSizeInBytes = 0;
         }
         try {
-            dataToSend = Files.readAllBytes(Paths.get(outputFilePath));
+            // Read the audio file
+            dataToSendWithoutHeader = Files.readAllBytes(Paths.get(outputFilePath));
+            // Convert the length to a byte array
+            ByteBuffer byteBuffer = ByteBuffer.allocate(Integer.BYTES);
+            byteBuffer.putInt(dataToSendWithoutHeader.length);
+            byte[] lengthBytes = byteBuffer.array();
+            //create a byte array to store the audio file and the header(file size)
+            dataToSend = new byte[lengthBytes.length + dataToSendWithoutHeader.length];
+            // Copy the length and the data into the new byte array
+            System.arraycopy(lengthBytes, 0, dataToSend, 0, lengthBytes.length);
+            System.arraycopy(dataToSendWithoutHeader, 0, dataToSend, lengthBytes.length, dataToSendWithoutHeader.length);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -88,7 +99,6 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
             responseData = result;
             // Convert the byte array to a JSON string
             String jasonString = new String(responseData);
-
             //Specify the file path
             String FilePath = getFilesDir() + "/response.json";
             //Create a file object
@@ -128,19 +138,15 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         byte[] fromServerBuffer = new byte[BUFFERSIZE];
 
         // Create separate threads for sending and receiving
-        Thread sendThread = new Thread(() -> {
+        Thread sendAndReceiveThread = new Thread(() -> {
             try (Socket clientSocket = new Socket(hostname, port);
-                 OutputStream output = clientSocket.getOutputStream()) {
-                output.write(toServerBytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-                callback.onComplete(null);
-            }
-        });
+                 OutputStream output = clientSocket.getOutputStream();
+                 InputStream input = clientSocket.getInputStream()){
 
-        Thread receiveThread = new Thread(() -> {
-            try (Socket clientSocket = new Socket(hostname, port);
-                 InputStream input = clientSocket.getInputStream()) {
+                // Send data to server
+                output.write(toServerBytes);
+
+                // Receive data from server
                 int bytesRead;
                 while ((bytesRead = input.read(fromServerBuffer)) != -1) {
                     byteArrayOutputStream.write(fromServerBuffer, 0, bytesRead);
@@ -153,13 +159,12 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         });
 
         // Start both threads
-        sendThread.start();
-        receiveThread.start();
+        sendAndReceiveThread.start();
 
         try {
             // Wait for both threads to finish
-            sendThread.join();
-            receiveThread.join();
+            sendAndReceiveThread.join();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
