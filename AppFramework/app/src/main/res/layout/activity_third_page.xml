@@ -36,6 +36,7 @@
         android:id="@+id/responseTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:text="responseTextView"
         android:textSize="16sp"
         tools:layout_editor_absoluteX="131dp"

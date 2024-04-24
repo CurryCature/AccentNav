@@ -125,7 +125,13 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
             });
         } else {
             // Handle error here
-            responseTextView.setText("Error, your accent is not detected. Please try again.");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    responseTextView.setText("Error, your accent is not detected. Please try again.");
+                }
+            }
+            );
         }
     }
 
