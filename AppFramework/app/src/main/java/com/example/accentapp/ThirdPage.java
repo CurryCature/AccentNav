@@ -112,7 +112,6 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             // Update the UI here
             //runOnUiThread ensure that UI update is performed on the main thread.
             runOnUiThread(new Runnable() {
@@ -126,11 +125,11 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         } else {
             // Handle error here
             runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    responseTextView.setText("Error, your accent is not detected. Please try again.");
+                  @Override
+                  public void run() {
+                      responseTextView.setText("Error, your accent is not detected. Please try again.");
+                  }
                 }
-            }
             );
         }
     }
@@ -167,14 +166,13 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         // Start both threads
         sendAndReceiveThread.start();
 
-        try {
+        /*try {
             // Wait for both threads to finish
             sendAndReceiveThread.join();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-
+        }*/
         return byteArrayOutputStream.toByteArray();
     }
 
@@ -182,17 +180,17 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
 }
 
 /*
-* The askServer method is indeed responsible for sending data to the server
-*  and receiving the response. However, it's important to note that the onComplete
-*  method is a callback that gets executed when the server's response is received.
-*  In the current setup, the askServer method is called in the onCreate method,
-* which is correct because you want to initiate the server communication when the activity is created.
-*  The askServer method then starts two threads, one for sending data to the server and another for receiving the response.
-*   When the response is received, the onComplete method of the RepositoryCallback is called. This is where you handle the server's response.
-*  In your case, you're updating the responseData variable and the UI in the onComplete method,
-*  which is the correct place to do so.  So, to answer your question,
-* the askServer method should not be called in the onComplete method.
-*  It should be called where you want to initiate the server communication,
-* which in your case is in the onCreate method.
-* The onComplete method should be used to handle the server's response.
-*  */
+ * The askServer method is indeed responsible for sending data to the server
+ *  and receiving the response. However, it's important to note that the onComplete
+ *  method is a callback that gets executed when the server's response is received.
+ *  In the current setup, the askServer method is called in the onCreate method,
+ * which is correct because you want to initiate the server communication when the activity is created.
+ *  The askServer method then starts two threads, one for sending data to the server and another for receiving the response.
+ *   When the response is received, the onComplete method of the RepositoryCallback is called. This is where you handle the server's response.
+ *  In your case, you're updating the responseData variable and the UI in the onComplete method,
+ *  which is the correct place to do so.  So, to answer your question,
+ * the askServer method should not be called in the onComplete method.
+ *  It should be called where you want to initiate the server communication,
+ * which in your case is in the onCreate method.
+ * The onComplete method should be used to handle the server's response.
+ *  */
