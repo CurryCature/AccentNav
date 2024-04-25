@@ -22,7 +22,7 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
 
     private int port = 28561;
 
-    private String hostname = "130.229.144.97";
+    private String hostname = "acucentapp.asuscomm.com";
 
     byte[] dataToSend = new byte[0];
 
@@ -44,11 +44,11 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         //String outputFilePath = intent.getStringExtra("outputFilePath");
         String outputFilePath = "/storage/emulated/0/Android/data/com.example.accentapp/files/Music/recording.mp4";
 
-        // Find the TextView in which to display the server response
-        responseTextView = findViewById(R.id.responseTextView);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_third_page);
+
+        // Find the TextView in which to display the server response
+        responseTextView = findViewById(R.id.responseTextView);
 
         textView = (TextView) findViewById(R.id.textView2);
         logo = (ImageView) findViewById(R.id.imageView);
@@ -85,11 +85,17 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            askServer(hostname, port, dataToSend, this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    askServer(hostname, port, dataToSend, ThirdPage.this);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+
         // Set the server response as the text of the TextView
         //responseTextView.setText(serverResponse);
     }
@@ -117,8 +123,7 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //responseTextView.setText(new String(responseData));
-                    //Set up a path to save the audio file.
+
                     responseTextView.setText(FilePath);
                 }
             });
@@ -142,7 +147,7 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] fromServerBuffer = new byte[BUFFERSIZE];
 
-        // Create separate threads for sending and receiving
+        // A thread for sending and receiving
         Thread sendAndReceiveThread = new Thread(() -> {
             try (Socket clientSocket = new Socket(hostname, port);
                  OutputStream output = clientSocket.getOutputStream();
@@ -166,31 +171,8 @@ public class ThirdPage extends AppCompatActivity implements RepositoryCallback<b
         // Start both threads
         sendAndReceiveThread.start();
 
-        /*try {
-            // Wait for both threads to finish
-            sendAndReceiveThread.join();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return byteArrayOutputStream.toByteArray();
     }
 
 
 }
-
-/*
- * The askServer method is indeed responsible for sending data to the server
- *  and receiving the response. However, it's important to note that the onComplete
- *  method is a callback that gets executed when the server's response is received.
- *  In the current setup, the askServer method is called in the onCreate method,
- * which is correct because you want to initiate the server communication when the activity is created.
- *  The askServer method then starts two threads, one for sending data to the server and another for receiving the response.
- *   When the response is received, the onComplete method of the RepositoryCallback is called. This is where you handle the server's response.
- *  In your case, you're updating the responseData variable and the UI in the onComplete method,
- *  which is the correct place to do so.  So, to answer your question,
- * the askServer method should not be called in the onComplete method.
- *  It should be called where you want to initiate the server communication,
- * which in your case is in the onCreate method.
- * The onComplete method should be used to handle the server's response.
- *  */
