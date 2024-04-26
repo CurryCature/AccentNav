@@ -67,7 +67,7 @@ def pitchvar_mapping(ds):
 
 ########################## END OF PITCHVAR MAP ##########################################
 
-def pitchvar(ds,batch_size):
+def pitchvar(ds):
   #working dataset
   wds = ds
   steps = 3
@@ -98,14 +98,14 @@ def printel(ds):
   for e in ds.take(1):
     print(e)
 
-def tds(ds,pitchvariation,noise,batch_size):
+def tds(ds,pitchvariation,noise):
   #squeeze because of mono sound
   new_ds = ds.map(squeeze, tf.data.AUTOTUNE)
   #add random noise to each sound (still 1D tensor)
   printel(new_ds)
   print("test shape")
   if pitchvariation:
-    new_ds = pitchvar(new_ds,batch_size)
+    new_ds = pitchvar(new_ds)
   #printel(ds)
   if noise:
     new_ds = new_ds.map(
