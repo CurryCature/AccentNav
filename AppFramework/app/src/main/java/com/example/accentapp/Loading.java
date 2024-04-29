@@ -1,6 +1,7 @@
 package com.example.accentapp;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.io.*;
 import java.net.Socket;
 import java.io.IOException;
@@ -23,9 +23,9 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
     TextView text1, text2, text3, text4;
     Timer timer;
 
-    private int port = 28591;
+    private int port = 20013;
 
-    private String hostname = "acucentapp.asuscomm.com";
+    private String hostname = "vm.cloud.cbh.kth.se";
 
     byte[] dataToSend = new byte[0];
 
@@ -39,12 +39,15 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
 
     private static final int BUFFERSIZE = 1024;
 
-    String outputFilePath = "/storage/emulated/0/Android/data/com.example.accentapp/files/Music/recording.mp4";
+    String outputFilePath = "/storage/emulated/0/Music/recordAccent.mp3";
+    //String OutputFilePath ="file:///storage/emulated/0/Music/recordAccent.mp3";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        /*Intent intent = getIntent();
+        String outputFilePath = intent.getStringExtra("outputFilePath");*/
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_loading);
@@ -101,6 +104,7 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
             @Override
             public void run() {
                 try {
+                    Log.e("Loading", "Sending data to server");
                     askServer(hostname, port, dataToSend, Loading.this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -141,6 +145,7 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
                 }
             });
         } else {
+
             // Handle error here
             runOnUiThread(new Runnable() {
                   @Override
@@ -186,10 +191,6 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
 
         return byteArrayOutputStream.toByteArray();
     }
-
-
-
-
 
 
 }

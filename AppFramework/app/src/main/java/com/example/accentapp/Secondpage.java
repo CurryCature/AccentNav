@@ -72,7 +72,7 @@ public class Secondpage extends AppCompatActivity {
         File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
         File outputFile = new File(outputDir, "recordAccent.mp3");
         audioUri = Uri.fromFile(outputFile);
-        //outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp3").getAbsolutePath();
+        //outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recordAccent.mp3").getAbsolutePath();
 
 
 
@@ -108,6 +108,7 @@ public class Secondpage extends AppCompatActivity {
                         timerTextView.setVisibility(View.GONE);
                         if(nxtPage) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
+                            //intent.putExtra("outputFilePath", outputFilePath);
                             startActivity(intent);
                             finish();
                         }
