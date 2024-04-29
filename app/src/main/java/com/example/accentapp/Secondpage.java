@@ -43,6 +43,9 @@ import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class Secondpage extends AppCompatActivity {
@@ -64,7 +67,7 @@ public class Secondpage extends AppCompatActivity {
     private long startTimeMillis;
     private Uri audioUri;
     private TextView timerTextView;
-    
+    private String lastSentence = "";
 
 
 
@@ -87,13 +90,30 @@ public class Secondpage extends AppCompatActivity {
 
         // Initialize outputFile
         File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-        File outputFile = new File(outputDir, "recordAccent.mp3");
+        File outputFile = new File(outputDir, "ARecording.mp3");
         audioUri = Uri.fromFile(outputFile);
         //outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp3").getAbsolutePath();
 
 
-
         handler = new Handler();
+
+        // Example text display
+        TextView TextDisplay = findViewById(R.id.text_sentence);
+
+        String[] sentences = {"'Swedish cuisine is known for its diverse range of dishes that reflect the country's rich culinary heritage and use of locally sourced ingredients.  Whether it's enjoying a coffee break with a cinnamon bun, cheeses, and salads, Swedish cuisine provides a delicious exploration of the country's culture and history through food.'",
+                              "'The Mediterranean Sea, bordered by Europe, Africa, and Asia, is renowned for its clear blue waters and its significant role in shaping the cultures and cuisines of the diverse regions that surround it. The vast landscapes and mesmerizing nature allows tourists to enjoy lovely holidays every year.'",
+                              "'Planning a birthday party requires meticulous attention to detail, from selecting the perfect venue and coordinating schedules to curating the guest list and organizing entertainment that suits the celebrant's preferences in order to create a joyous and memorable experience for both the birthday honoree and their guests.'",
+                              "'Visiting a castle transports you back in time, as you wander through grand halls, admire centuries-old tapestries, climb ancient stone staircases, and peer out from towering battlements, immersing yourself in the rich history and majestic beauty of the fortress's storied past.'",
+                              "'The arrival of spring brings warmer temperatures and longer days, signaling the end of winter. You can hear the birds chirping and admire the beauty of the bloomed colorful flowers, while admiring the modern architecture of the city center.'"};
+        Random random = new Random();
+
+        int r;
+        do {
+            r = random.nextInt(sentences.length);
+        } while (sentences[r].equals(lastSentence));
+
+        TextDisplay.setText(sentences[r]);
+        lastSentence = sentences[r];
 
         // Upload button
         Button btn1 = findViewById(R.id.btn_up);
@@ -115,16 +135,22 @@ public class Secondpage extends AppCompatActivity {
                         if(checkPermissions()) {
                             v.setPressed(true);
                             startRecording();
-                            timerTextView.setVisibility(View.VISIBLE);
                             timerTextView.setText("Recording Time: 0 seconds");
                         }
                         break;
                     case MotionEvent.ACTION_UP:
                         v.setPressed(false);
                         stopRecording();
-                        timerTextView.setVisibility(View.GONE);
+                        int r;
+                        do {
+                            r = random.nextInt(sentences.length);
+                        } while (sentences[r].equals(lastSentence));
+                        TextDisplay.setText(sentences[r]);
+                        lastSentence = sentences[r];
+
                         if(nxtPage) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
+                            intent.putExtra("outputFilePath", audioUri.getPath());
                             startActivity(intent);
                             finish();
                         }
