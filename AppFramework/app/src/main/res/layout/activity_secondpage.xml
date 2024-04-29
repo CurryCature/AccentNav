@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,15 +7,17 @@
     android:background="#F3ECFF"
     tools:context=".MainActivity">
 
+
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/app_logo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--  <Button
           android:id="@+id/btn_upl"
@@ -32,53 +32,94 @@
 
     <TextView
         android:id="@+id/text_record"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="68dp"
         android:gravity="center"
-        android:text="Record your voice here to detect your accent"
+        android:text="Hold the microphone to record"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_logo" />
 
     <TextView
         android:id="@+id/text_accurate_result"
-        android:layout_width="0dp"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="216dp"
         android:gravity="center"
         android:text="For a more accurate result, try this text!"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_record" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_sentence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="'In Stockholm, you can stroll through the cobblestone streets of Gamla Stan and explore the modern architecture of the city center.'"
+        android:textColor="#4C0099"
+        android:textSize="16sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toTopOf="@id/timerTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@id/text_accurate_result"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Minimum record duration: 5 seconds."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/btn_mic"
+        app:layout_constraintTop_toBottomOf="@id/text_sentence"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.382" />
 
     <Button
         android:id="@+id/btn_mic"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginBottom="208dp"
+        android:layout_marginBottom="168dp"
         android:background="@drawable/btn_selector"
         android:backgroundTint="@color/btn_color_selector"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_up"
         android:layout_width="200dp"
         android:layout_height="38dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginBottom="172dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="@color/white"
         android:text="UPLOAD"
         android:textColor="@color/btn_color_selector"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="timerTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

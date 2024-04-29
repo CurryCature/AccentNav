@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AccentApp"
         tools:targetApi="31">
         <activity
+            android:name=".Error"
+            android:exported="false" />
+        <activity
             android:name=".Secondpage"
             android:exported="false" />
         <activity

@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Secondpage extends AppCompatActivity{
+public class Secondpage extends AppCompatActivity {
 
     private static final String TAG = "recording";
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 100;
@@ -37,17 +38,18 @@ public class Secondpage extends AppCompatActivity{
     private static final int MIN_RECORDING_DURATION = 5000; // 5 seconds
     private static final int MAX_RECORDING_DURATION = 60000; // 60 seconds
     private MediaRecorder mediaRecorder;
-    public String outputFilePath;
-    private long fileSizeInBytes = 0;
-    private String hostname = "130.229.141.0"; // The server's IP address or hostname
-    private int port = 28561; // The server's port
-    private byte[] userInputBytes = new byte[0];
+    private String outputFile;
     private ActivityResultLauncher<Intent> requestPermissionLauncher;
 
     //Control duration
     private Handler handler;
-    private boolean isRecording = false;
+    private boolean nxtPage = false;
     private long startTimeMillis;
+    private Uri audioUri;
+    private TextView timerTextView;
+
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -60,8 +62,19 @@ public class Secondpage extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Initialize outputFile(the string output file path)
-        outputFilePath = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp4").getAbsolutePath();
+        // Hide the navigation bar (optional)
+        /*getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );*/
+
+        // Initialize outputFile
+        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+        File outputFile = new File(outputDir, "recordAccent.mp3");
+        audioUri = Uri.fromFile(outputFile);
+        //outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp3").getAbsolutePath();
+
+
 
         handler = new Handler();
 
@@ -75,22 +88,26 @@ public class Secondpage extends AppCompatActivity{
         });
 
         // Recording button
+
         Button btnRecord = findViewById(R.id.btn_mic);
         btnRecord.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        if (checkPermissions()) {
+                        if(checkPermissions()) {
                             v.setPressed(true);
                             startRecording();
+                            timerTextView.setVisibility(View.VISIBLE);
+                            timerTextView.setText("Recording Time: 0 seconds");
                         }
                         break;
                     case MotionEvent.ACTION_UP:
                         v.setPressed(false);
-                        if(stopRecording()) {
+                        stopRecording();
+                        timerTextView.setVisibility(View.GONE);
+                        if(nxtPage) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
-                            intent.putExtra("outputFilePath", outputFilePath);
                             startActivity(intent);
                             finish();
                         }
@@ -99,23 +116,37 @@ public class Secondpage extends AppCompatActivity{
                 return true; // Return true to consume the event
             }
         });
-
+        timerTextView = findViewById(R.id.timerTextView);
     }
 
+    private void startTimer() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (nxtPage) {
+                    long elapsedTimeMillis = System.currentTimeMillis() - startTimeMillis;
+                    int elapsedSeconds = (int) (elapsedTimeMillis / 1000);
+                    timerTextView.setText("Recording Time: " + elapsedSeconds + " seconds");
+                    startTimer();
+                }
+            }
+        }, 1000); // update every second
+    }
     private void startRecording() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        mediaRecorder.setOutputFile(outputFilePath);
+        mediaRecorder.setOutputFile(audioUri.getPath());
 
         try {
             mediaRecorder.prepare();
             mediaRecorder.start();
-            isRecording = true;
             startTimeMillis = System.currentTimeMillis(); // Record start time
             scheduleStopRecording(MAX_RECORDING_DURATION);
             Toast.makeText(this, "Recording started", Toast.LENGTH_SHORT).show();
+            nxtPage = true;
+            startTimer();
         } catch (IOException e) {
             Toast.makeText(this, "Recording preparation failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Recording preparation failed", e);
@@ -123,46 +154,47 @@ public class Secondpage extends AppCompatActivity{
                 mediaRecorder.release();
                 mediaRecorder = null;
             }
+            nxtPage = false;
         }
     }
 
-    private boolean stopRecording() {
-        boolean continueNext = true;
-        if (mediaRecorder != null && isRecording) {
+    private void stopRecording() {
+        if (mediaRecorder != null && nxtPage) {
             long elapsedTimeMillis = System.currentTimeMillis() - startTimeMillis;
             if (elapsedTimeMillis >= MIN_RECORDING_DURATION) {
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder = null;
-                isRecording = false;
                 handler.removeCallbacksAndMessages(null); // Cancel scheduled stop
                 Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show();
+                nxtPage = true;
+
             } else {
-                continueNext = false;
+                nxtPage = false;
                 handler.removeCallbacksAndMessages(null);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 mediaRecorder.stop();
-                isRecording = false;
                 Toast.makeText(this, "Minimum recording duration not reached", Toast.LENGTH_SHORT).show();
             }
         }
-        return continueNext;
     }
-
-
 
     // stop recording when exceed max length
     private void scheduleStopRecording(long durationMillis) {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isRecording) {
+                if (nxtPage) {
                     stopRecording();
                     Toast.makeText(Secondpage.this, "Maximum recording duration reached", Toast.LENGTH_SHORT).show();
                 }
             }
         }, durationMillis);
     }
-
 
     private boolean checkPermissions() {
         String[] permissions = null;
@@ -171,8 +203,7 @@ public class Secondpage extends AppCompatActivity{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissions = new String[]{
                     Manifest.permission.RECORD_AUDIO,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_MEDIA_AUDIO // Assuming READ_MEDIA_AUDIO for audio access
+                    Manifest.permission.READ_MEDIA_AUDIO
             };
         } else {
             // Handle pre-Android 13 permission
@@ -183,15 +214,13 @@ public class Secondpage extends AppCompatActivity{
         }
 
         // Request permissions if not already granted
-        if (permissions != null) {
-            int permissionCheck = ContextCompat.checkSelfPermission(this, permissions[0]);
-            for (int i = 0; i < permissions.length; i++) {
-                if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
-                    return false; // Permissions not granted, wait for onRequestPermissionsResult
-                }
-                permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
+        int permissionCheck = ContextCompat.checkSelfPermission(this, permissions[0]);
+        for (int i = 0; i < permissions.length; i++) {
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
+                return false; // Permissions not granted, wait for onRequestPermissionsResult
             }
+            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
         }
 
         // All permissions granted

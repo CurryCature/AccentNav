@@ -9,7 +9,6 @@
     tools:context=".ThirdPage">
 
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -24,23 +23,246 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="300dp"
-        android:text="Our guess is that your mother tongue is "
-        android:textSize="20dp"
+        android:text="Our guess is that your accent is: "
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.257" />
+
 
     <TextView
-        android:id="@+id/responseTextView"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="responseTextView"
-        android:textSize="16sp"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="276dp" />
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:text="Expand for more details"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnex"
+        app:layout_constraintEnd_toStartOf="@id/btnex"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/res"
+        app:layout_constraintTop_toBottomOf="@id/res"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <View
+        android:id="@+id/menu"
+        android:layout_width="300dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/box"
+        app:layout_constraintBottom_toTopOf="@id/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnex" />
+
+
+    <Button
+        android:id="@+id/btnex"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/baseline_keyboard_arrow_down_24"
+        android:backgroundTint="@color/purple"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/res"
+        app:layout_constraintTop_toBottomOf="@id/res"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <TextView
+        android:id="@+id/res"
+        android:layout_width="280dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="380dp"
+        android:gravity="center"
+        android:text="Swedish"
+        android:textColor="@color/purple"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <TextView
+        android:id="@+id/rank1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="1. Swedish"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rank2"
+        app:layout_constraintEnd_toStartOf="@id/percent1"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        app:layout_constraintTop_toTopOf="@id/menu"
+        app:layout_constraintVertical_bias="0.114" />
+
+    <TextView
+        android:id="@+id/rank3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="3. English"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/rank4"
+        app:layout_constraintEnd_toStartOf="@id/percent3"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        app:layout_constraintTop_toBottomOf="@id/rank2"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <TextView
+        android:id="@+id/rank5"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="5. German"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/menu"
+        app:layout_constraintEnd_toStartOf="@id/percent5"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        app:layout_constraintTop_toBottomOf="@id/rank4"
+        app:layout_constraintVertical_bias="0.076" />
+
+    <TextView
+        android:id="@+id/percent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="17%"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/rank3"
+        app:layout_constraintEnd_toEndOf="@id/menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/rank3"
+        app:layout_constraintTop_toTopOf="@id/rank3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/percent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="19%"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/rank2"
+        app:layout_constraintEnd_toEndOf="@id/menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/rank2"
+        app:layout_constraintTop_toTopOf="@id/rank2"
+        app:layout_constraintVertical_bias="0.666"
+        />
+
+    <TextView
+        android:id="@+id/percent4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="2%"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/rank4"
+        app:layout_constraintEnd_toEndOf="@id/menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/rank4"
+        app:layout_constraintTop_toTopOf="@id/rank4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/percent5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="2%"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/rank5"
+        app:layout_constraintEnd_toEndOf="@id/menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/rank5"
+        app:layout_constraintTop_toTopOf="@id/rank5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/rank4"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="4. Indian"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/rank5"
+        app:layout_constraintEnd_toStartOf="@id/percent4"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        app:layout_constraintTop_toBottomOf="@id/rank3"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <TextView
+        android:id="@+id/rank2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2. Australian"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/rank3"
+        app:layout_constraintEnd_toStartOf="@id/percent2"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        app:layout_constraintTop_toBottomOf="@id/rank1"
+        app:layout_constraintVertical_bias="0.048" />
+
+
+    <TextView
+        android:id="@+id/percent1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="60%"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/rank1"
+        app:layout_constraintEnd_toEndOf="@id/menu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/rank1"
+        app:layout_constraintTop_toTopOf="@id/rank1"
+        app:layout_constraintVertical_bias="0.481" />
 
     <Button
         android:id="@+id/back"
@@ -48,11 +270,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
-        android:text="Back"
-        android:textSize="20dp"
+        android:backgroundTint="@color/purple"
+
+        android:text="Try again!"
         android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
