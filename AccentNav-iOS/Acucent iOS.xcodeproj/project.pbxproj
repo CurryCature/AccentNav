@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1B6DD11119DBFF55C1F139 /* Pods_Acucent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB166F33D06AAD23F961117 /* Pods_Acucent_iOS.framework */; };
+		495091652BE0D6A3000485C4 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495091642BE0D6A3000485C4 /* TCPClient.swift */; };
 		774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */; };
 		774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434932BD8DDBA0082FF01 /* ContentView.swift */; };
 		774434962BD8DDBC0082FF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 774434952BD8DDBC0082FF01 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 		774434BE2BD8E1160082FF01 /* 372231255932145874-removebg.png in Resources */ = {isa = PBXBuildFile; fileRef = 774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */; };
 		774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434C12BD94E580082FF01 /* ButtonAction.swift */; };
 		774435002BDA770D0082FF01 /* AudioRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434FF2BDA770D0082FF01 /* AudioRecord.swift */; };
+		7D63D1663767F3617E576684 /* Pods_Acucent_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E13D41B1F227C4A701C07BF7 /* Pods_Acucent_iOSTests.framework */; };
+		98FFC24539B7D48DA566EBCB /* Pods_Acucent_iOS_Acucent_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D3A7FEBEE6070FDFD39D6E /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09C5B47D51FC41245DEF4238 /* Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		17C424E398A7D4C2BC5454A3 /* Pods-Acucent iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2EB166F33D06AAD23F961117 /* Pods_Acucent_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		495091642BE0D6A3000485C4 /* TCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
+		6598284FF1A1F7F1A7306913 /* Pods-Acucent iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.release.xcconfig"; sourceTree = "<group>"; };
 		7744348E2BD8DDBA0082FF01 /* Acucent iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Acucent iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acucent_iOSApp.swift; sourceTree = "<group>"; };
 		774434932BD8DDBA0082FF01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +61,11 @@
 		774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "372231255932145874-removebg.png"; sourceTree = "<group>"; };
 		774434C12BD94E580082FF01 /* ButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAction.swift; sourceTree = "<group>"; };
 		774434FF2BDA770D0082FF01 /* AudioRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecord.swift; sourceTree = "<group>"; };
+		9C73AEAEF16498A00E4B7A36 /* Pods-Acucent iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOSTests/Pods-Acucent iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		C0E38DBA6CB5AF79625D41A0 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D63502E0C46EBF9BA94330A2 /* Pods-Acucent iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOSTests/Pods-Acucent iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E13D41B1F227C4A701C07BF7 /* Pods_Acucent_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6D3A7FEBEE6070FDFD39D6E /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOS_Acucent_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1B6DD11119DBFF55C1F139 /* Pods_Acucent_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D63D1663767F3617E576684 /* Pods_Acucent_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98FFC24539B7D48DA566EBCB /* Pods_Acucent_iOS_Acucent_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +103,8 @@
 				774434A12BD8DDBC0082FF01 /* Acucent iOSTests */,
 				774434AB2BD8DDBC0082FF01 /* Acucent iOSUITests */,
 				7744348F2BD8DDBA0082FF01 /* Products */,
+				AB72F8F695C4066DB29C7A9E /* Pods */,
+				80464743A78164A1BB99C89C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +129,7 @@
 				774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */,
 				774434952BD8DDBC0082FF01 /* Assets.xcassets */,
 				774434972BD8DDBC0082FF01 /* Preview Content */,
+				495091642BE0D6A3000485C4 /* TCPClient.swift */,
 			);
 			path = "Acucent iOS";
 			sourceTree = "<group>";
@@ -139,6 +159,29 @@
 			path = "Acucent iOSUITests";
 			sourceTree = "<group>";
 		};
+		80464743A78164A1BB99C89C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EB166F33D06AAD23F961117 /* Pods_Acucent_iOS.framework */,
+				E6D3A7FEBEE6070FDFD39D6E /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */,
+				E13D41B1F227C4A701C07BF7 /* Pods_Acucent_iOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB72F8F695C4066DB29C7A9E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				17C424E398A7D4C2BC5454A3 /* Pods-Acucent iOS.debug.xcconfig */,
+				6598284FF1A1F7F1A7306913 /* Pods-Acucent iOS.release.xcconfig */,
+				C0E38DBA6CB5AF79625D41A0 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */,
+				09C5B47D51FC41245DEF4238 /* Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig */,
+				D63502E0C46EBF9BA94330A2 /* Pods-Acucent iOSTests.debug.xcconfig */,
+				9C73AEAEF16498A00E4B7A36 /* Pods-Acucent iOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 774434B22BD8DDBC0082FF01 /* Build configuration list for PBXNativeTarget "Acucent iOS" */;
 			buildPhases = (
+				729F80F5514AB9786E2E16C7 /* [CP] Check Pods Manifest.lock */,
 				7744348A2BD8DDBA0082FF01 /* Sources */,
 				7744348B2BD8DDBA0082FF01 /* Frameworks */,
 				7744348C2BD8DDBA0082FF01 /* Resources */,
+				6D6E26A5FE482FA7B214E2F9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +208,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 774434B52BD8DDBC0082FF01 /* Build configuration list for PBXNativeTarget "Acucent iOSTests" */;
 			buildPhases = (
+				8D236C7D5A66E3263DC76038 /* [CP] Check Pods Manifest.lock */,
 				7744349A2BD8DDBC0082FF01 /* Sources */,
 				7744349B2BD8DDBC0082FF01 /* Frameworks */,
 				7744349C2BD8DDBC0082FF01 /* Resources */,
@@ -181,9 +227,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 774434B82BD8DDBC0082FF01 /* Build configuration list for PBXNativeTarget "Acucent iOSUITests" */;
 			buildPhases = (
+				A52811C4345CC181C01608D3 /* [CP] Check Pods Manifest.lock */,
 				774434A42BD8DDBC0082FF01 /* Sources */,
 				774434A52BD8DDBC0082FF01 /* Frameworks */,
 				774434A62BD8DDBC0082FF01 /* Resources */,
+				9F46B3EEF5D0955480A5218E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,7 +251,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					7744348D2BD8DDBA0082FF01 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -227,6 +275,9 @@
 				Base,
 			);
 			mainGroup = 774434852BD8DDBA0082FF01;
+			packageReferences = (
+				495091662BE0DD3C000485C4 /* XCRemoteSwiftPackageReference "socket" */,
+			);
 			productRefGroup = 7744348F2BD8DDBA0082FF01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -266,12 +317,116 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6D6E26A5FE482FA7B214E2F9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		729F80F5514AB9786E2E16C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Acucent iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D236C7D5A66E3263DC76038 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Acucent iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F46B3EEF5D0955480A5218E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A52811C4345CC181C01608D3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Acucent iOS-Acucent iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7744348A2BD8DDBA0082FF01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */,
+				495091652BE0D6A3000485C4 /* TCPClient.swift in Sources */,
 				774435002BDA770D0082FF01 /* AudioRecord.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,
@@ -347,6 +502,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -407,6 +563,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -427,6 +584,7 @@
 		};
 		774434B32BD8DDBC0082FF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17C424E398A7D4C2BC5454A3 /* Pods-Acucent iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -456,6 +614,7 @@
 		};
 		774434B42BD8DDBC0082FF01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6598284FF1A1F7F1A7306913 /* Pods-Acucent iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -485,6 +644,7 @@
 		};
 		774434B62BD8DDBC0082FF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D63502E0C46EBF9BA94330A2 /* Pods-Acucent iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -504,6 +664,7 @@
 		};
 		774434B72BD8DDBC0082FF01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C73AEAEF16498A00E4B7A36 /* Pods-Acucent iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -523,6 +684,7 @@
 		};
 		774434B92BD8DDBC0082FF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0E38DBA6CB5AF79625D41A0 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -540,6 +702,7 @@
 		};
 		774434BA2BD8DDBC0082FF01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C5B47D51FC41245DEF4238 /* Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -595,6 +758,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		495091662BE0DD3C000485C4 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 774434862BD8DDBA0082FF01 /* Project object */;
 }
