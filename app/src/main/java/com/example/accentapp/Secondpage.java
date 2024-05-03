@@ -6,6 +6,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
@@ -24,29 +26,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.provider.MediaStore;
-
 import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Random;
-
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 public class Secondpage extends AppCompatActivity {
 
@@ -57,19 +51,16 @@ public class Secondpage extends AppCompatActivity {
     static final int PERMISSIONS_REQUEST_CODE = 123;
     private static final int MIN_RECORDING_DURATION = 5000; // 5 seconds
     private static final int MAX_RECORDING_DURATION = 60000; // 60 seconds
+    private static final int REQUEST_PICK_AUDIO = 1002;
     private MediaRecorder mediaRecorder;
+    private MediaPlayer mediaPlayer;
     private String outputFile;
-    private ActivityResultLauncher<Intent> requestPermissionLauncher;
-
-    //Control duration
+    private Uri audioUri;
+    private TextView timerTextView;
     private Handler handler;
     private boolean nxtPage = false;
     private long startTimeMillis;
-    private Uri audioUri;
-    private TextView timerTextView;
     private String lastSentence = "";
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -77,34 +68,21 @@ public class Secondpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_secondpage);
-        checkPermissions();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Hide the navigation bar (optional)
-        /*getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );*/
-
-        // Initialize outputFile
-        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-        File outputFile = new File(outputDir, "ARecording.mp3");
-        audioUri = Uri.fromFile(outputFile);
-        //outputFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "recording.mp3").getAbsolutePath();
-
-
+        checkPermissions();
         handler = new Handler();
 
         // Example text display
         TextView TextDisplay = findViewById(R.id.text_sentence);
 
         String[] sentences = {"'Swedish cuisine is known for its diverse range of dishes that reflect the country's rich culinary heritage and use of locally sourced ingredients.  Whether it's enjoying a coffee break with a cinnamon bun, cheeses, and salads, Swedish cuisine provides a delicious exploration of the country's culture and history through food.'",
-                              "'The Mediterranean Sea, bordered by Europe, Africa, and Asia, is renowned for its clear blue waters and its significant role in shaping the cultures and cuisines of the diverse regions that surround it. The vast landscapes and mesmerizing nature allows tourists to enjoy lovely holidays every year.'",
-                              "'Planning a birthday party requires meticulous attention to detail, from selecting the perfect venue and coordinating schedules to curating the guest list and organizing entertainment that suits the celebrant's preferences in order to create a joyous and memorable experience for both the birthday honoree and their guests.'",
-                              "'Visiting a castle transports you back in time, as you wander through grand halls, admire centuries-old tapestries, climb ancient stone staircases, and peer out from towering battlements, immersing yourself in the rich history and majestic beauty of the fortress's storied past.'",
-                              "'The arrival of spring brings warmer temperatures and longer days, signaling the end of winter. You can hear the birds chirping and admire the beauty of the bloomed colorful flowers, while admiring the modern architecture of the city center.'"};
+                "'The Mediterranean Sea, bordered by Europe, Africa, and Asia, is renowned for its clear blue waters and its significant role in shaping the cultures and cuisines of the diverse regions that surround it. The vast landscapes and mesmerizing nature allows tourists to enjoy lovely holidays every year.'",
+                "'Planning a birthday party requires meticulous attention to detail, from selecting the perfect venue and coordinating schedules to curating the guest list and organizing entertainment that suits the celebrant's preferences in order to create a joyous and memorable experience for both the birthday honoree and their guests.'",
+                "'Visiting a castle transports you back in time, as you wander through grand halls, admire centuries-old tapestries, climb ancient stone staircases, and peer out from towering battlements, immersing yourself in the rich history and majestic beauty of the fortress's storied past.'",
+                "'The arrival of spring brings warmer temperatures and longer days, signaling the end of winter. You can hear the birds chirping and admire the beauty of the bloomed colorful flowers, while admiring the modern architecture of the city center.'"};
         Random random = new Random();
 
         int r;
@@ -116,26 +94,26 @@ public class Secondpage extends AppCompatActivity {
         lastSentence = sentences[r];
 
         // Upload button
-        Button btn1 = findViewById(R.id.btn_up);
-        btn1.setOnClickListener(new View.OnClickListener() {
+        Button btnUpload = findViewById(R.id.btn_up);
+        btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(TAG, "onClick: ");
+                uploadAudio();
             }
         });
 
         // Recording button
-
         Button btnRecord = findViewById(R.id.btn_mic);
         btnRecord.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        if(checkPermissions()) {
+                        if (checkPermissions()) {
                             v.setPressed(true);
                             startRecording();
-                            timerTextView.setText("Recording Time: 0 seconds");
+                            timerTextView.setText("Recording Time (minimum 5s): 0s");
                         }
                         break;
                     case MotionEvent.ACTION_UP:
@@ -147,8 +125,9 @@ public class Secondpage extends AppCompatActivity {
                         } while (sentences[r].equals(lastSentence));
                         TextDisplay.setText(sentences[r]);
                         lastSentence = sentences[r];
+                        timerTextView.setText("Minimum record duration: 5 seconds");
 
-                        if(nxtPage) {
+                        if (nxtPage) {
                             Intent intent = new Intent(Secondpage.this, Loading.class);
                             intent.putExtra("outputFilePath", audioUri.getPath());
                             startActivity(intent);
@@ -169,18 +148,19 @@ public class Secondpage extends AppCompatActivity {
                 if (nxtPage) {
                     long elapsedTimeMillis = System.currentTimeMillis() - startTimeMillis;
                     int elapsedSeconds = (int) (elapsedTimeMillis / 1000);
-                    timerTextView.setText("Recording Time: " + elapsedSeconds + " seconds");
+                    timerTextView.setText("Recording Time (minimum 5s): " + elapsedSeconds + "s");
                     startTimer();
                 }
             }
         }, 1000); // update every second
     }
+
     private void startRecording() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        mediaRecorder.setOutputFile(audioUri.getPath());
+        mediaRecorder.setOutputFile(getOutputFile().getPath());
 
         try {
             mediaRecorder.prepare();
@@ -239,6 +219,102 @@ public class Secondpage extends AppCompatActivity {
         }, durationMillis);
     }
 
+    private void uploadAudio() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("audio/*");
+        startActivityForResult(intent, REQUEST_PICK_AUDIO);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PICK_AUDIO && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            audioUri = data.getData();
+            try {
+                // Copy the selected audio file to the app's internal storage
+                File copiedFile = copyAudioFileToInternalStorage(audioUri);
+                // Check if the copied file is not null and exists
+                if (copiedFile != null && copiedFile.exists()) {
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setDataSource(copiedFile.getPath());
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            int duration = mp.getDuration() / 1000; // in seconds
+                            if (duration >= MIN_RECORDING_DURATION / 1000 && duration <= MAX_RECORDING_DURATION / 1000) {
+                                // Audio duration is within the allowed range
+                                // Proceed with further processing
+                                Toast.makeText(Secondpage.this, "Audio duration: " + duration + " seconds", Toast.LENGTH_SHORT).show();
+                                // Go to Loading activity and send audio to server
+                                Intent intent = new Intent(Secondpage.this, Loading.class);
+                                intent.putExtra("outputFilePath", copiedFile.getPath());
+                                startActivity(intent);
+                            } else {
+                                // Audio duration is not within the allowed range
+                                Toast.makeText(Secondpage.this, "Audio duration must be between 5 and 60 seconds", Toast.LENGTH_SHORT).show();
+                            }
+                            mediaPlayer.release();
+                        }
+                    });
+                    mediaPlayer.prepareAsync();
+                } else {
+                    Toast.makeText(Secondpage.this, "Error copying audio file", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private File copyAudioFileToInternalStorage(Uri audioUri) {
+        try {
+            // Get a reference to the content resolver
+            ContentResolver resolver = getContentResolver();
+            // Get the file's content type
+            String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+            Cursor cursor = resolver.query(audioUri, projection, null, null, null);
+            String fileType = null;
+            if (cursor != null && cursor.moveToFirst()) {
+                String fileName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME));
+                fileType = fileName.substring(fileName.lastIndexOf(".") + 1);
+            }
+            if (cursor != null) {
+                cursor.close();
+            }
+            // Create the destination file in the internal storage
+            File destFile = new File(getFilesDir(), "audio_file." + fileType);
+            // Open an input stream to read from the content resolver
+            InputStream inputStream = resolver.openInputStream(audioUri);
+            // Open an output stream to write to the internal storage file
+            OutputStream outputStream = new FileOutputStream(destFile);
+            // Copy the content from the input stream to the output stream
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            // Close the streams
+            outputStream.close();
+            inputStream.close();
+            // Return the destination file
+            return destFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+    private File getOutputFile() {
+        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+        File outputFile = new File(outputDir, "ARecording.mp3");
+        audioUri = Uri.fromFile(outputFile);
+        return outputFile;
+    }
+
     private boolean checkPermissions() {
         String[] permissions = null;
 
@@ -270,7 +346,6 @@ public class Secondpage extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -292,14 +367,12 @@ public class Secondpage extends AppCompatActivity {
             // Handle permission grant/denial logic based on individual permissions
             if (recordAudioGranted && (writeStorageGranted || readMediaGranted)) {
                 // All permissions granted, proceed with recording and saving audio
-                // ... (your recording and storage logic)
             } else {
                 // Handle permission denial for any permission
                 showPermissionDeniedMessageAndRequestPermissionAgain();
             }
         }
     }
-
 
     private void showPermissionDeniedMessageAndRequestPermissionAgain() {
         Toast.makeText(this, "Permission denied. Please grant the required permission to continue.", Toast.LENGTH_SHORT).show();

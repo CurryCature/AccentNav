@@ -47,8 +47,9 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
     TextView text1, text2, text3, text4;
     Timer timer;
 
+    //private int port = 28561;
     private int port = 20013;
-
+    //private String hostname = "130.229.154.67";
     private String hostname = "vm.cloud.cbh.kth.se";
 
     byte[] dataToSend = new byte[0];
@@ -138,16 +139,16 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
         keys.clear();
         values.clear();
 
-        if (result != null) {
-            responseData = result;
+        if (result != null && result.length > 0) {
             // Convert the byte array to a JSON string
-            String jsonData = new String(responseData);
+            String jsonData = new String(result);
 
             if (jsonData.contains("\"error\":")) {
                 int start = jsonData.indexOf(":") + 3;
                 int end = jsonData.lastIndexOf("\"");
                 String errorMessage = jsonData.substring(start, end);
-                System.out.println("Error: " + errorMessage);
+                keys.add("Error");
+                values.add(errorMessage);
                 return;
             }
 
@@ -197,26 +198,9 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
 
 
 
-            //Specify the file path
-            /*String FilePath = getFilesDir() + "/response.json";
-            //Create a file object
-            File file = new File(FilePath);
-            //Write the JSON string to the file
-            try{
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(jasonString);
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            // Update the UI here
-            //runOnUiThread ensure that UI update is performed on the main thread.
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //responseTextView.setText(FilePath);
-
                     Intent intent = new Intent(Loading.this, ThirdPage.class);
                     startActivity(intent);
                     finish();
@@ -225,14 +209,13 @@ public class Loading extends AppCompatActivity implements RepositoryCallback<byt
         } else {
             // Handle error here
             runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    //responseTextView.setText("Error, your accent is not detected. Please try again.");
-                    Intent intent = new Intent(Loading.this, ThirdPage.class);
-                    startActivity(intent);
-                    finish();
-                }
-              }
+                              @Override
+                              public void run() {
+                                  Intent intent = new Intent(Loading.this, ThirdPage.class);
+                                  startActivity(intent);
+                                  finish();
+                              }
+                          }
             );
         }
     }
