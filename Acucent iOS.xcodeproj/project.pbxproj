@@ -17,7 +17,6 @@
 		774434BC2BD8E0810082FF01 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774434BB2BD8E0810082FF01 /* Launch Screen.storyboard */; };
 		774434BE2BD8E1160082FF01 /* 372231255932145874-removebg.png in Resources */ = {isa = PBXBuildFile; fileRef = 774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */; };
 		774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434C12BD94E580082FF01 /* ButtonAction.swift */; };
-		774435002BDA770D0082FF01 /* AudioRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434FF2BDA770D0082FF01 /* AudioRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +50,6 @@
 		774434BB2BD8E0810082FF01 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "372231255932145874-removebg.png"; sourceTree = "<group>"; };
 		774434C12BD94E580082FF01 /* ButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAction.swift; sourceTree = "<group>"; };
-		774434FF2BDA770D0082FF01 /* AudioRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +103,6 @@
 				774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */,
 				774434932BD8DDBA0082FF01 /* ContentView.swift */,
 				774434C12BD94E580082FF01 /* ButtonAction.swift */,
-				774434FF2BDA770D0082FF01 /* AudioRecord.swift */,
 				774434BB2BD8E0810082FF01 /* Launch Screen.storyboard */,
 				774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */,
 				774434952BD8DDBC0082FF01 /* Assets.xcassets */,
@@ -272,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */,
-				774435002BDA770D0082FF01 /* AudioRecord.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,
 			);
