@@ -1,70 +1,103 @@
-//
-//  TCPClient.swift
-//  Acucent iOS
-//
-//  Created by Hosna Molavi on 2024-04-30.
-//
-
 import Foundation
-import SocketIO
 
+class TCP_Communicator: NSObject, StreamDelegate {
 
-class TCPClient{
-    
-    func connectToServer(host: String, port: UInt32, dataToSend: Data) -> Data? {
-        
-        var inputStream: InputStream?
-        var outputStream: OutputStream?
-        
-        //Create input and output stream for commmunication with server.
-        Stream.getStreamsToHost(withName: host, port: Int(port), inputStream: &inputStream, outputStream: &outputStream)
-                
-        guard let input = inputStream, let output = outputStream else {
-            print("Failed to create streams")
-            return nil
+    var readStream: Unmanaged<CFReadStream>?
+    var writeStream: Unmanaged<CFWriteStream>?
+    var inputStream: InputStream?
+    var outputStream: OutputStream?
+    private var url: URL;
+    private var port: UInt32;
+
+    init(url: URL, port: UInt32) {
+        self.url = url;
+        self.port = port;
+        let urlString = "vm.cloud.cbh.kth.se"
+        guard let url = URL(string: urlString) else {
+            fatalError("Invalid URL")
         }
-        
-        //Opening the streams allows data to be sent and received through them.
-        input.open()
-        output.open()
-        
-        // Write the data to the output stream
-        let bytesWritten = output.write((dataToSend as NSData).bytes.bindMemory(to: UInt8.self, capacity: dataToSend.count), maxLength: dataToSend.count)
-        
-        if bytesWritten == -1 {
-            print("Failed to write data to server")
-            return nil
-        }
-                
-        // Assuming the server sends a byte array of fixed size.
-        let bufferSize = 1024
-        //This buffer store the bytes read from the stream.
-        var buffer = [UInt8](repeating: 0, count: bufferSize)
-        //This a data of object Data.
-        var data = Data()
-        //It reads the bytes from the input stream to the buffer.
-        let bytesRead = input.read(&buffer, maxLength: bufferSize)
-        if bytesRead > 0 {
-            data.append(buffer, count: bytesRead)
-            return data
-        } else {
-            print("Failed to read data from server")
-            return nil
-        }
-        
+        // Assuming you have already created an instance of TCP_Communicator and connected to the server
+        let tcpCommunicator = TCP_Communicator(url: url, port: 20013)
+
+        // Call the connect method to establish a connection to the server
+        tcpCommunicator.connect()
+
+        // Send a message to the server
+        tcpCommunicator.send(message: "Hello, server!")
+
+        // After sending all the messages you need, you can disconnect from the server
+        tcpCommunicator.disconnect()
     }
-    
-    func askServer(){
-        
-        let tcpclient = TCPClient()
-        if let data = tcpclient.connectToServer(host: "vm.cloud.cbh.kth.se", port: 20013){
-            print("Recieved data and connected")
-        }
-            else{
-                print("Error")
+
+
+    func connect() {
+        CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (url.absoluteString as CFString), port, &readStream, &writeStream);
+        print("Opening streams.")
+        outputStream = writeStream?.takeRetainedValue()
+        inputStream = readStream?.takeRetainedValue()
+        outputStream?.delegate = self;
+        inputStream?.delegate = self;
+        outputStream?.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default);
+        inputStream?.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default);
+        outputStream?.open();
+        inputStream?.open();
+    }
+
+
+    func disconnect(){
+        print("Closing streams.");
+        inputStream?.close();
+        outputStream?.close();
+        inputStream?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default);
+        outputStream?.remove(from: RunLoop.current, forMode: RunLoop.Mode.default);
+        inputStream?.delegate = nil;
+        outputStream?.delegate = nil;
+        inputStream = nil;
+        outputStream = nil;
+    }
+
+    func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+        print("stream event \(eventCode)")
+        switch eventCode {
+        case .openCompleted:
+            print("Stream opened")
+        case .hasBytesAvailable:
+            if aStream == inputStream {
+                var dataBuffer = Array<UInt8>(repeating: 0, count: 1024)
+                var len: Int
+                while (inputStream?.hasBytesAvailable)! {
+                    len = (inputStream?.read(&dataBuffer, maxLength: 1024))!
+                    if len > 0 {
+                        let output = String(bytes: dataBuffer, encoding: .ascii)
+                        if nil != output {
+                            print("server said: \(output ?? "")")
+                        }
+                    }
+                }
             }
+        case .hasSpaceAvailable:
+            print("Stream has space available now")
+        case .errorOccurred:
+            print("\(aStream.streamError?.localizedDescription ?? "")")
+        case .endEncountered:
+            aStream.close()
+            aStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
+            print("close stream")
+        default:
+            print("Unknown event")
+        }
+    }
+
+    func send(message: String){
+
+        let response = "msg:\(message)"
+        let buff = [UInt8](message.utf8)
+        if let _ = response.data(using: .ascii) {
+            outputStream?.write(buff, maxLength: buff.count)
+        }
+
     }
     
     
-}
 
+}
