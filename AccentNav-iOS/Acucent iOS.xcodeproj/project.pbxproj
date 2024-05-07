@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		495091652BE0D6A3000485C4 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495091642BE0D6A3000485C4 /* TCPClient.swift */; };
+		49FCE6DD2BEA224D00D57D37 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6DC2BEA224D00D57D37 /* Network.swift */; };
 		774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */; };
 		774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434932BD8DDBA0082FF01 /* ContentView.swift */; };
 		774434962BD8DDBC0082FF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 774434952BD8DDBC0082FF01 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		2EB166F33D06AAD23F961117 /* Pods_Acucent_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AC202B5E5940635AB358764 /* Pods-Acucent iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.release.xcconfig"; sourceTree = "<group>"; };
 		495091642BE0D6A3000485C4 /* TCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
+		49FCE6DC2BEA224D00D57D37 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		533AC6672EEC15DA934F2D7B /* Pods-Acucent iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOSTests/Pods-Acucent iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		6BAB8BF2DA272E568E64EE8F /* Pods-Acucent iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOSTests/Pods-Acucent iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7744348E2BD8DDBA0082FF01 /* Acucent iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Acucent iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				774434952BD8DDBC0082FF01 /* Assets.xcassets */,
 				774434972BD8DDBC0082FF01 /* Preview Content */,
 				495091642BE0D6A3000485C4 /* TCPClient.swift */,
+				49FCE6DC2BEA224D00D57D37 /* Network.swift */,
 			);
 			path = "Acucent iOS";
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			files = (
 				774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */,
 				495091652BE0D6A3000485C4 /* TCPClient.swift in Sources */,
+				49FCE6DD2BEA224D00D57D37 /* Network.swift in Sources */,
 				774435002BDA770D0082FF01 /* AudioRecord.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,

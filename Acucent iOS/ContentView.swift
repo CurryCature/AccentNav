@@ -13,7 +13,8 @@ struct ContentView: View {
     @State private var elapsedTime: TimeInterval = 0
     @State private var timer: Timer?
     @State var progressValue: Float = 0.0
-    
+    let tcpCommunicator = TCP_Communicator(url: "http://vm.cloud.cbh.kth.se", port: 20013)
+        
     var body: some View {
         
         ZStack {
@@ -55,6 +56,9 @@ struct ContentView: View {
                         Button(action: {
                             if self.isStopwatchRunning {
                                                 self.stopStopwatch()
+                                                self.tcpCommunicator.connect()
+                                                self.tcpCommunicator.send(message: "Hello, server!")
+                                                self.tcpCommunicator.disconnect()
                                             } else {
                                                 self.startStopwatch()
                                             }
@@ -87,6 +91,7 @@ struct ContentView: View {
                                                   
                                                       
     }
+    
     
     func requestRecordPermission() {
         AVAudioSession.sharedInstance().requestRecordPermission { granted in
