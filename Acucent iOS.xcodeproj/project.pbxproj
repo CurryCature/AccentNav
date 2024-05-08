@@ -11,11 +11,6 @@
 		496E34792BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */; };
 		496E347B2BEB5E7000DCDDEA /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = 496E347A2BEB5E7000DCDDEA /* Socket */; };
 		49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E415FE2BEA6D2E00BA47D2 /* Network.swift */; };
-		49FCE6E22BEA53C100D57D37 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E12BEA53C100D57D37 /* TCPClient.swift */; };
-		49FCE6E42BEA540F00D57D37 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E32BEA540F00D57D37 /* Socket.swift */; };
-		49FCE6E82BEA54B200D57D37 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E72BEA54B200D57D37 /* ytcpsocket.c */; };
-		49FCE6EB2BEA54EA00D57D37 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6EA2BEA54EA00D57D37 /* yudpsocket.c */; };
-		49FCE6ED2BEA557200D57D37 /* result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6EC2BEA557200D57D37 /* result.swift */; };
 		4A787B7DDE7BB1C5636A5557 /* Pods_Acucent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D580C01814F79B8DA39A984F /* Pods_Acucent_iOS.framework */; };
 		774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */; };
 		774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434932BD8DDBA0082FF01 /* ContentView.swift */; };
@@ -51,14 +46,6 @@
 		1B08F7B1ECE5BD3028FBF7D2 /* Pods-Acucent iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		488821264B06E0D156576B66 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		49E415FE2BEA6D2E00BA47D2 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		49FCE6E12BEA53C100D57D37 /* TCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
-		49FCE6E32BEA540F00D57D37 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
-		49FCE6E52BEA54B100D57D37 /* Acucent iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Acucent iOS-Bridging-Header.h"; sourceTree = "<group>"; };
-		49FCE6E62BEA54B200D57D37 /* ytcpsocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ytcpsocket.h; sourceTree = "<group>"; };
-		49FCE6E72BEA54B200D57D37 /* ytcpsocket.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
-		49FCE6E92BEA54EA00D57D37 /* yudpsocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yudpsocket.h; sourceTree = "<group>"; };
-		49FCE6EA2BEA54EA00D57D37 /* yudpsocket.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
-		49FCE6EC2BEA557200D57D37 /* result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = result.swift; sourceTree = "<group>"; };
 		57CBA6CFAA4690F3C5511498 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOS_Acucent_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD69E92A68AF231D6C9DDCF /* Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		69FB05BAC75C2D1205B5BE24 /* Pods-Acucent iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOSTests/Pods-Acucent iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,25 +121,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		49FCE6E02BEA4C9E00D57D37 /* sources */ = {
-			isa = PBXGroup;
-			children = (
-				49FCE6E12BEA53C100D57D37 /* TCPClient.swift */,
-				49FCE6E32BEA540F00D57D37 /* Socket.swift */,
-				49FCE6E62BEA54B200D57D37 /* ytcpsocket.h */,
-				49FCE6E72BEA54B200D57D37 /* ytcpsocket.c */,
-				49FCE6E52BEA54B100D57D37 /* Acucent iOS-Bridging-Header.h */,
-				49FCE6E92BEA54EA00D57D37 /* yudpsocket.h */,
-				49FCE6EA2BEA54EA00D57D37 /* yudpsocket.c */,
-				49FCE6EC2BEA557200D57D37 /* result.swift */,
-			);
-			path = sources;
-			sourceTree = "<group>";
-		};
 		774434852BD8DDBA0082FF01 = {
 			isa = PBXGroup;
 			children = (
-				49FCE6E02BEA4C9E00D57D37 /* sources */,
 				774434902BD8DDBA0082FF01 /* Acucent iOS */,
 				774434A12BD8DDBC0082FF01 /* Acucent iOSTests */,
 				774434AB2BD8DDBC0082FF01 /* Acucent iOSUITests */,
@@ -424,15 +395,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49FCE6EB2BEA54EA00D57D37 /* yudpsocket.c in Sources */,
-				49FCE6E22BEA53C100D57D37 /* TCPClient.swift in Sources */,
-				49FCE6E42BEA540F00D57D37 /* Socket.swift in Sources */,
-				49FCE6ED2BEA557200D57D37 /* result.swift in Sources */,
 				774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */,
 				49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,
-				49FCE6E82BEA54B200D57D37 /* ytcpsocket.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

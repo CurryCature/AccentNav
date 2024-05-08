@@ -8,44 +8,50 @@ import Foundation
 import Socket
 import Dispatch
 
-//var responseData: [UInt8]
-//var BUFFFERSIZE = 1024
 
-
-func askServer(hostname: String, port: Int, inputBytes: [UInt8]) -> [UInt8]?{
+func createHelper(family: Socket.ProtocolFamily = .inet) throws -> Socket {
     
-    let port = 20013
-    let hostname = "vm.cloud.cbh.kth.se"
+    let socket = try Socket.create(family: family)
     
-    do {
-        
-        let mySocket = try Socket.create()
-        mySocket.readBufferSize = 1024
-        
-        mySocket.connect(to: hostname, port: port)
-    }
-    
-    
+    return socket
 }
 
-/*func testTruncateTCP() {
+func createUDPHelper(family: Socket.ProtocolFamily = .inet) throws -> Socket {
+    
+    let socket = try Socket.create(family: family, type: .datagram, proto: .udp)
+    
+    return socket
+}
 
-        let hostname = "127.0.0.1"
-        let port: Int32 = 1337
+func readAndPrint(socket: Socket, data: inout Data) throws -> String? {
+        
+        data.count = 0
+        let    bytesRead = try socket.read(into: &data)
+        if bytesRead > 0 {
+            
+            print("Read \(bytesRead) from socket...")
+            
+            guard let response = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue) else {
+                
+                print("Error accessing received data...")
+                return nil
+            }
+            
+            print("Response:\n\(response)")
+            return String(describing: response)
+        }
+
+        return nil
+    }
+
+func TCPClient() {
+
+        let hostname = "vm.cloud.cbh.kth.se"
+        let port: Int32 = 20013
 
         var data = Data()
 
         do {
-
-            // Launch the server helper...
-            //launchServerHelper()
-
-            // Need to wait for the server to come up...
-            /*#if os(Linux)
-                _ = Glibc.sleep(2)
-            #else
-                _ = Darwin.sleep(2)
-            #endif*/
 
             // Create the signature...
             let signature = try Socket.Signature(protocolFamily: .inet, socketType: .stream, proto: .tcp, hostname: hostname, port: port)!
@@ -57,7 +63,7 @@ func askServer(hostname: String, port: Int, inputBytes: [UInt8]) -> [UInt8]?{
             defer {
                 // Close the socket...
                 socket.close()
-                XCTAssertFalse(socket.isActive)
+            
             }
 
             // Connect to the server helper...
@@ -70,7 +76,10 @@ func askServer(hostname: String, port: Int, inputBytes: [UInt8]) -> [UInt8]?{
             print("\nConnected to host: \(hostname):\(port)")
             print("\tSocket signature: \(socket.signature!.description)\n")
 
-            _ = try readAndPrint(socket: socket, data: &data)
+            let (isReadable, isWritable) = try socket.isReadableOrWritable(waitForever: false, timeout: 5)
+
+            print("Socket is readable: \(isReadable)")
+            print("Socket is writable: \(isWritable)")
 
             let hello = "Hello from client..."
             try socket.write(from: hello)
@@ -98,11 +107,9 @@ func askServer(hostname: String, port: Int, inputBytes: [UInt8]) -> [UInt8]?{
             _ = try socket.read(into: buf, bufSize: 18, truncate: true)
             let response = String(cString: buf)
 
-            XCTAssertEqual(response, "Server response: \n")
 
             let response2 = try readAndPrint(socket: socket, data: &data)
 
-            XCTAssertEqual(response2, "\(hello)\n")
 
             try socket.write(from: "QUIT")
 
@@ -121,13 +128,13 @@ func askServer(hostname: String, port: Int, inputBytes: [UInt8]) -> [UInt8]?{
             guard let socketError = error as? Socket.Error else {
 
                 print("Unexpected error...")
-                XCTFail()
                 return
             }
 
             print("testTruncateTCP Error reported: \(socketError.description)")
-            XCTFail()
         }
         
-    }*/
+}
+
+
 

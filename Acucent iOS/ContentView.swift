@@ -55,7 +55,7 @@ struct ContentView: View {
                         Button(action: {
                             if self.isStopwatchRunning {
                                                 self.stopStopwatch()
-                                            
+                                                TCPClient()
                                             } else {
                                                 self.startStopwatch()
                                             }
