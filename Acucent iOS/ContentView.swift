@@ -40,10 +40,6 @@ struct ContentView: View {
                 
                 VStack {
                     
-                    Text("\(formattedTime(elapsedTime))")
-                                    .font(.title)
-                                    .padding()
-                    
                     ZStack {
                         
                         ProgressBar(elapsedTime: $elapsedTime)
@@ -76,7 +72,6 @@ struct ContentView: View {
                                         Text("Reset")
                                             .foregroundColor(.purple)
                                     }
-                                                                          
                 }
                 
                 Spacer()
@@ -93,15 +88,9 @@ struct ContentView: View {
             if granted {
                 // Permission granted
             } else {
-                // Handle permission denied
+                Text("Permission Required for Result")
             }
         }
-    }
-    
-    func setupAudioSession() throws {
-        let audioSession = AVAudioSession.sharedInstance()
-        try audioSession.setCategory(.playAndRecord, mode: .default)
-        try audioSession.setActive(true)
     }
     
     func formattedTime(_ timeInterval: TimeInterval) -> String {
