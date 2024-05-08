@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		326E2D6BAD186E60627C4601 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CBA6CFAA4690F3C5511498 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */; };
-		49FCE6DB2BEA20F500D57D37 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6DA2BEA20F500D57D37 /* Network.swift */; };
+		496E34792BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */; };
+		496E347B2BEB5E7000DCDDEA /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = 496E347A2BEB5E7000DCDDEA /* Socket */; };
+		49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E415FE2BEA6D2E00BA47D2 /* Network.swift */; };
 		49FCE6E22BEA53C100D57D37 /* TCPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E12BEA53C100D57D37 /* TCPClient.swift */; };
 		49FCE6E42BEA540F00D57D37 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E32BEA540F00D57D37 /* Socket.swift */; };
 		49FCE6E82BEA54B200D57D37 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 49FCE6E72BEA54B200D57D37 /* ytcpsocket.c */; };
@@ -48,7 +50,7 @@
 /* Begin PBXFileReference section */
 		1B08F7B1ECE5BD3028FBF7D2 /* Pods-Acucent iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		488821264B06E0D156576B66 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		49FCE6DA2BEA20F500D57D37 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		49E415FE2BEA6D2E00BA47D2 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		49FCE6E12BEA53C100D57D37 /* TCPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCPClient.swift; sourceTree = "<group>"; };
 		49FCE6E32BEA540F00D57D37 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		49FCE6E52BEA54B100D57D37 /* Acucent iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Acucent iOS-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -84,6 +86,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496E347B2BEB5E7000DCDDEA /* Socket in Frameworks */,
+				496E34792BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary in Frameworks */,
 				4A787B7DDE7BB1C5636A5557 /* Pods_Acucent_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,7 +182,7 @@
 				774434BD2BD8E1160082FF01 /* 372231255932145874-removebg.png */,
 				774434952BD8DDBC0082FF01 /* Assets.xcassets */,
 				774434972BD8DDBC0082FF01 /* Preview Content */,
-				49FCE6DA2BEA20F500D57D37 /* Network.swift */,
+				49E415FE2BEA6D2E00BA47D2 /* Network.swift */,
 			);
 			path = "Acucent iOS";
 			sourceTree = "<group>";
@@ -219,13 +223,16 @@
 				7744348A2BD8DDBA0082FF01 /* Sources */,
 				7744348B2BD8DDBA0082FF01 /* Frameworks */,
 				7744348C2BD8DDBA0082FF01 /* Resources */,
-				29E4DA31CE384BD85706492F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Acucent iOS";
+			packageProductDependencies = (
+				496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */,
+				496E347A2BEB5E7000DCDDEA /* Socket */,
+			);
 			productName = "Acucent iOS";
 			productReference = 7744348E2BD8DDBA0082FF01 /* Acucent iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -257,7 +264,6 @@
 				774434A42BD8DDBC0082FF01 /* Sources */,
 				774434A52BD8DDBC0082FF01 /* Frameworks */,
 				774434A62BD8DDBC0082FF01 /* Resources */,
-				B1254EDD8589BDADC82767A5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,6 +308,9 @@
 				Base,
 			);
 			mainGroup = 774434852BD8DDBA0082FF01;
+			packageReferences = (
+				49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */,
+			);
 			productRefGroup = 7744348F2BD8DDBA0082FF01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -364,23 +373,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		29E4DA31CE384BD85706492F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		32FC9C841654E12B713A4374 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,23 +417,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B1254EDD8589BDADC82767A5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -450,11 +425,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				49FCE6EB2BEA54EA00D57D37 /* yudpsocket.c in Sources */,
-				49FCE6DB2BEA20F500D57D37 /* Network.swift in Sources */,
 				49FCE6E22BEA53C100D57D37 /* TCPClient.swift in Sources */,
 				49FCE6E42BEA540F00D57D37 /* Socket.swift in Sources */,
 				49FCE6ED2BEA557200D57D37 /* result.swift in Sources */,
 				774434942BD8DDBA0082FF01 /* ContentView.swift in Sources */,
+				49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,
 				49FCE6E82BEA54B200D57D37 /* ytcpsocket.c in Sources */,
@@ -789,6 +764,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueSocket.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = BlueSocketTestCommonLibrary;
+		};
+		496E347A2BEB5E7000DCDDEA /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 774434862BD8DDBA0082FF01 /* Project object */;
 }
