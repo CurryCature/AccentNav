@@ -40,9 +40,6 @@ struct ContentView: View {
                 
                 VStack {
                     
-                    Text("\(formattedTime(elapsedTime))")
-                                    .font(.title)
-                                    .padding()
                     
                     ZStack {
                         
