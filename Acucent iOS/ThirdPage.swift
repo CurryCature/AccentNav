@@ -10,6 +10,7 @@ import SwiftUI
 struct ThirdPage: View {
     
     @State private var isExpanded = false
+    @State var textView: UILabel!
     
     var body: some View {
         ZStack{
@@ -21,8 +22,11 @@ struct ThirdPage: View {
                     .frame(maxWidth:150 , maxHeight:80)
                     .aspectRatio(contentMode: .fit)
                     .padding()
+                Spacer()
                 Text(" Our guess is that your accent is:  ").font(.title3).fontWeight(.bold).multilineTextAlignment(.center).italic()
                     .padding(.vertical, 3)
+                Text("English").font(.title3).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).foregroundColor(Color("DarkPurple"))
+                Text("Expand for more details")
                 Button(action: {
                     withAnimation {
                         isExpanded.toggle()
@@ -35,44 +39,28 @@ struct ThirdPage: View {
                         .frame(maxWidth:20 , maxHeight:25)
                         .aspectRatio(contentMode: .fit)
                         .padding(.all)
+                   
                 }
                 
                 if isExpanded {
-                    BottomSheetView()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 200) // Set your desired height here
-                        .background(Color("bgColour"))
-                        .cornerRadius(20)
-                        .shadow(radius: 5)
+                    
+                    VStack{
+                        Text("60 percent .... English")
+                        Text("30 percent .... German")
+                    }
+                    .foregroundColor(.black) // Set the color as desired
+                    .padding()
+                    .background(Color("bgColour")) // Set the background color as desired
+                    .cornerRadius(10)
+                    
                 }
+                Spacer()
                 
             }
         }
         
     }
     
-    struct BottomSheetView: View {
-        @State private var text = ""
-        
-        var body: some View {
-            VStack {
-                Text("English")
-                Text("German ")
-                Button("Close") {
-                    // Close the bottom sheet
-                }
-                .padding()
-            }
-            .padding()
-            .background(Color("bgColour"))
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 500)
-            .frame(height: 700)
-            .cornerRadius(20)
-            .shadow(radius: 5)
-        }
-        
-    }
 }
 
 struct ThirdPage_Previews: PreviewProvider {
