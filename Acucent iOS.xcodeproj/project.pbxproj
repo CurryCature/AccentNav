@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		326E2D6BAD186E60627C4601 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CBA6CFAA4690F3C5511498 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */; };
+		491F9D8F2BF1F91500D56437 /* ObjectMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 491F9D8E2BF1F91500D56437 /* ObjectMapper */; };
 		496E34792BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */; };
 		496E347B2BEB5E7000DCDDEA /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = 496E347A2BEB5E7000DCDDEA /* Socket */; };
 		496E347D2BEB9CB300DCDDEA /* ThirdPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496E347C2BEB9CB300DCDDEA /* ThirdPage.swift */; };
-		497DE3B52BEBAEDD00D09811 /* rough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497DE3B42BEBAEDD00D09811 /* rough.swift */; };
 		49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E415FE2BEA6D2E00BA47D2 /* Network.swift */; };
 		4A787B7DDE7BB1C5636A5557 /* Pods_Acucent_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D580C01814F79B8DA39A984F /* Pods_Acucent_iOS.framework */; };
 		774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774434912BD8DDBA0082FF01 /* Acucent_iOSApp.swift */; };
@@ -48,7 +48,6 @@
 		1B08F7B1ECE5BD3028FBF7D2 /* Pods-Acucent iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS/Pods-Acucent iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		488821264B06E0D156576B66 /* Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		496E347C2BEB9CB300DCDDEA /* ThirdPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPage.swift; sourceTree = "<group>"; };
-		497DE3B42BEBAEDD00D09811 /* rough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rough.swift; sourceTree = "<group>"; };
 		49E415FE2BEA6D2E00BA47D2 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		57CBA6CFAA4690F3C5511498 /* Pods_Acucent_iOS_Acucent_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Acucent_iOS_Acucent_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD69E92A68AF231D6C9DDCF /* Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Acucent iOS-Acucent iOSUITests/Pods-Acucent iOS-Acucent iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491F9D8F2BF1F91500D56437 /* ObjectMapper in Frameworks */,
 				496E347B2BEB5E7000DCDDEA /* Socket in Frameworks */,
 				496E34792BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary in Frameworks */,
 				4A787B7DDE7BB1C5636A5557 /* Pods_Acucent_iOS.framework in Frameworks */,
@@ -159,7 +159,6 @@
 				774434972BD8DDBC0082FF01 /* Preview Content */,
 				49E415FE2BEA6D2E00BA47D2 /* Network.swift */,
 				496E347C2BEB9CB300DCDDEA /* ThirdPage.swift */,
-				497DE3B42BEBAEDD00D09811 /* rough.swift */,
 			);
 			path = "Acucent iOS";
 			sourceTree = "<group>";
@@ -209,6 +208,7 @@
 			packageProductDependencies = (
 				496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */,
 				496E347A2BEB5E7000DCDDEA /* Socket */,
+				491F9D8E2BF1F91500D56437 /* ObjectMapper */,
 			);
 			productName = "Acucent iOS";
 			productReference = 7744348E2BD8DDBA0082FF01 /* Acucent iOS.app */;
@@ -287,6 +287,7 @@
 			mainGroup = 774434852BD8DDBA0082FF01;
 			packageReferences = (
 				49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */,
+				491F9D8D2BF1F78600D56437 /* XCRemoteSwiftPackageReference "ObjectMapper" */,
 			);
 			productRefGroup = 7744348F2BD8DDBA0082FF01 /* Products */;
 			projectDirPath = "";
@@ -406,7 +407,6 @@
 				49E415FF2BEA6D2E00BA47D2 /* Network.swift in Sources */,
 				774434C22BD94E580082FF01 /* ButtonAction.swift in Sources */,
 				774434922BD8DDBA0082FF01 /* Acucent_iOSApp.swift in Sources */,
-				497DE3B52BEBAEDD00D09811 /* rough.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		491F9D8D2BF1F78600D56437 /* XCRemoteSwiftPackageReference "ObjectMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tristanhimmelman/ObjectMapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/BlueSocket.git";
@@ -751,6 +759,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		491F9D8E2BF1F91500D56437 /* ObjectMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 491F9D8D2BF1F78600D56437 /* XCRemoteSwiftPackageReference "ObjectMapper" */;
+			productName = ObjectMapper;
+		};
 		496E34782BEB5E7000DCDDEA /* BlueSocketTestCommonLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 49E416002BEB5B6900BA47D2 /* XCRemoteSwiftPackageReference "BlueSocket" */;
