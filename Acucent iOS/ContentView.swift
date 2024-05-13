@@ -79,19 +79,54 @@ struct ContentView: View {
             }
                                                       
         }
+        .onAppear {
+            requestRecordPermission()
+        }
                                                   
                                                       
     }
     
+    func setupAudioSession() throws {
+        let audioSession = AVAudioSession.sharedInstance()
+        try audioSession.setCategory(.playAndRecord, mode: .default)
+        try audioSession.setActive(true)
+    }
+    
+    var audioRecorder: AVAudioRecorder?
+    
+    func setupRecorder() throws {
+        let recordingSettings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
+        let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let audioFilename = documentPath.appendingPathComponent("recording.m4a")
+        
+        audioRecorder = try AVAudioRecorder(url: audioFilename, settings: recordingSettings)
+        audioRecorder?.prepareToRecord()
+    }
+    
+    func startRecording() {
+        audioRecorder?.record()
+    }
+    
+    func stopRecording() {
+        audioRecorder?.stop()
+    }
+    
     func requestRecordPermission() {
         AVAudioSession.sharedInstance().requestRecordPermission { granted in
-            if granted {
-                // Permission granted
-            } else {
-                Text("Permission Required for Result")
+            let title = granted ? "Permission Granted" : "Permission Denied"
+            let message = granted ? "You can now record audio." : "You have denied permission to record audio."
+            
+            DispatchQueue.main.async {
+                let alertController = UIAlertController(title: title,
+                                                        message: message,
+                                                        preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
         }
     }
+
+    
     
     func formattedTime(_ timeInterval: TimeInterval) -> String {
             let minutes = Int(timeInterval) / 60
