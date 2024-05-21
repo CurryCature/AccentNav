@@ -6,13 +6,13 @@ AccentNav is the repository for the app we developed as a group. It is an ANDROI
 You have to simply open up the app, allow the required permissions, and hold the microphone icon to record. The longer you record, the more accurate of a result you will receive. Do note that there is a minimum recording duration of 5 seconds.
 
 Here are some of the accents it will be able to detect:
--American
--Australian
--British
--Swedish
--Indian
--German
--Arabic
+*American
+*Australian
+*British
+*Swedish
+*Indian
+*German
+*Arabic
 
 We used python code for the back-end of the app which is the AI model that takes in your voice samples and makes an accurate estimate of what accent you have. It also gives you this in percentages, showing most likely what accent you might have to the least likely.
 
