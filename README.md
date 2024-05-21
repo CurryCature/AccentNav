@@ -16,5 +16,7 @@ Here are some of the accents it will be able to detect:
 
 We used python code for the back-end of the app which is the AI model that takes in your voice samples and makes an accurate estimate of what accent you have. It also gives you this in percentages, showing most likely what accent you might have to the least likely.
 
-The front end of the android app is coded mainly in Java as that is what Android Studio uses which is the platform we used when developing the app.
+The front end of the android app is coded mainly in Java and XML as that is what Android Studio uses which is the platform we used when developing the app.
+Within there you will also find a few branches related to the nearly complete iOS version of the app we are currently working on.
+However, everything related to the finished ANDROID app is on the main branch and any code you may want to check out or explore is well commented and explained.
 
